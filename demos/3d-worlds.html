@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Generative Worlds - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / 3D Generative Worlds
+            </div>
+            <h1>3D Generative Worlds</h1>
+            <p>Enhanced terrain visualization with interactive 3D rendering</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                This demo extends the noise-based terrain generation with enhanced 3D visualization. Using the same
+                Perlin noise algorithm, we render terrain in 3D space with rotation, lighting, and biome coloring.
+            </p>
+            <p>
+                The terrain is generated from 2D noise, then extruded into 3D. This approach is efficient and creates
+                natural-looking landscapes suitable for games and simulations.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Procedural Worlds:</strong> Generate vast landscapes without manual creation</li>
+                <li><strong>Memory Efficiency:</strong> Store noise parameters, not full geometry</li>
+                <li><strong>Scalability:</strong> Generate detail on-demand at different LODs</li>
+                <li><strong>Variety:</strong> Infinite worlds from simple parameters</li>
+                <li><strong>Performance:</strong> GPU-accelerated noise generation</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Noise Scale:</strong> Controls terrain feature size</li>
+                <li><strong>Octaves:</strong> Number of noise layers for detail</li>
+                <li><strong>Height Scale:</strong> Vertical exaggeration</li>
+                <li><strong>Rotation:</strong> View angle for 3D visualization</li>
+                <li><strong>Biome Colors:</strong> Height-based terrain coloring</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Too many octaves:</strong> Performance degrades, patterns become noisy</li>
+                <li><strong>Extreme height:</strong> Terrain becomes unrealistic or causes clipping</li>
+                <li><strong>Poor scale:</strong> Features too large or too small for intended use</li>
+                <li><strong>Memory issues:</strong> High-resolution heightmaps consume memory</li>
+                <li><strong>Rendering performance:</strong> Complex 3D meshes are expensive</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                3D terrain rendering scales with vertex count. For real-time, use LOD systems: high detail near camera,
+                lower detail at distance. Chunking allows loading/unloading terrain regions dynamically.
+            </p>
+            <p>
+                GPU-based noise generation can handle millions of vertices in real-time. CPU generation limits to
+                thousands of vertices for smooth performance.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Marching Cubes:</strong> Generate meshes from 3D fields</li>
+                <li><strong>Dual Contouring:</strong> Higher quality meshes from fields</li>
+                <li><strong>Erosion Simulation:</strong> Realistic terrain weathering</li>
+                <li><strong>Biome Generation:</strong> Temperature/moisture-based regions</li>
+                <li><strong>Planetary Generation:</strong> Spherical terrain mapping</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>Three.js:</strong> 3D rendering library</li>
+                <li><strong>Unity Terrain:</strong> Built-in terrain system</li>
+                <li><strong>Unreal Landscape:</strong> Procedural landscape tools</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens with 1000×1000 terrain? How does performance degrade?</li>
+                <li>Where does 3D generation break? Edge cases, extreme parameters?</li>
+                <li>How could players exploit deterministic terrain? Predict resource locations?</li>
+                <li>Which parameter dominates? Scale, octaves, or height?</li>
+                <li>What's the optimal LOD strategy? When to switch detail levels?</li>
+                <li>How does chunking affect generation? Seamless vs visible boundaries?</li>
+                <li>Can we guarantee interesting terrain? Or is seed selection important?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { World3D } from '../js/demos/World3D.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new World3D(framework);
+    </script>
+</body>
+</html>

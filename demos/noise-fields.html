@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noise & Fields - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Noise & Fields
+            </div>
+            <h1>Noise & Fields</h1>
+            <p>Procedural noise generation for terrain, textures, and flow fields</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Noise functions generate smooth, continuous values that appear random but are deterministic.
+                Perlin noise and its variants (Simplex, OpenSimplex) are fundamental to procedural generation,
+                creating natural-looking patterns from simple mathematical functions.
+            </p>
+            <p>
+                By combining multiple octaves (layers) of noise at different frequencies and amplitudes,
+                we create complex, fractal-like patterns that mimic natural phenomena like terrain, clouds, and textures.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Infinite Content:</strong> Generate vast worlds without storing every detail</li>
+                <li><strong>Deterministic:</strong> Same seed always produces the same result</li>
+                <li><strong>Performance:</strong> Compute on-demand, cache only what's needed</li>
+                <li><strong>Variation:</strong> Create unique experiences while maintaining consistency</li>
+                <li><strong>Natural Appearance:</strong> Smooth, organic patterns that feel hand-crafted</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Scale:</strong> Controls the "zoom level" - smaller values create larger features</li>
+                <li><strong>Octaves:</strong> Number of noise layers - more octaves = more detail</li>
+                <li><strong>Persistence:</strong> How much each octave contributes - controls roughness</li>
+                <li><strong>Lacunarity:</strong> Frequency multiplier between octaves - controls detail spacing</li>
+                <li><strong>Seed:</strong> Determines the specific pattern generated</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Too many octaves:</strong> Performance degrades, patterns become too busy</li>
+                <li><strong>Extreme persistence:</strong> High values create harsh, unnatural patterns</li>
+                <li><strong>Poor scale choice:</strong> Features too large or too small for intended use</li>
+                <li><strong>Non-deterministic:</strong> Using system random instead of seeded RNG breaks reproducibility</li>
+                <li><strong>Memory issues:</strong> Pre-generating large heightmaps can exhaust memory</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                Noise generation is O(1) per sample, but octaves multiply the cost. For real-time applications,
+                limit octaves to 4-6. For pre-computed content, 8+ octaves are feasible.
+            </p>
+            <p>
+                Memory scales with resolution: a 1024×1024 heightmap uses 1MB (8-bit) or 4MB (32-bit float).
+                Consider chunking or streaming for large worlds.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Simplex Noise:</strong> Improved version with better computational properties</li>
+                <li><strong>Worley/Voronoi Noise:</strong> Cell-based patterns for organic textures</li>
+                <li><strong>fBm (Fractal Brownian Motion):</strong> Standard multi-octave noise</li>
+                <li><strong>Ridged Noise:</strong> Absolute value creates sharp ridges</li>
+                <li><strong>Curl Noise:</strong> Divergence-free vector fields for flow</li>
+                <li><strong>Blue Noise:</strong> Poisson disk sampling for even distribution</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>FastNoise:</strong> C++ noise library with multiple algorithms</li>
+                <li><strong>noisejs:</strong> JavaScript Perlin/Simplex implementation</li>
+                <li><strong>p5.js:</strong> Built-in noise() function</li>
+                <li><strong>Three.js:</strong> Noise utilities for 3D generation</li>
+                <li><strong>ShaderToy:</strong> GPU-accelerated noise in GLSL</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens if this scales 100×? How does performance degrade?</li>
+                <li>Where does this break? What edge cases cause artifacts?</li>
+                <li>How could players exploit deterministic generation? Can they predict patterns?</li>
+                <li>Which parameter dominates behavior? Scale, octaves, or persistence?</li>
+                <li>What happens at extreme values? Too many octaves, zero persistence, etc.</li>
+                <li>How does seed choice affect gameplay? Can we guarantee interesting seeds?</li>
+                <li>What's the minimum viable noise? Can we simplify further?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { NoiseTerrain } from '../js/demos/NoiseTerrain.js';
+
+        // Create framework
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        // Insert controls panel into the controls container
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        // Create and initialize demo
+        const demo = new NoiseTerrain(framework);
+    </script>
+</body>
+</html>
+

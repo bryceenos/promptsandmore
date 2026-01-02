@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time & Simulation - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Time & Simulation
+            </div>
+            <h1>Time & Simulation</h1>
+            <p>Fixed vs variable timestep, event queues, and determinism</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Fixed timestep updates simulation at constant intervals (e.g., 60 FPS), ensuring deterministic,
+                frame-rate independent behavior. Variable timestep uses actual frame time, simpler but non-deterministic
+                and frame-rate dependent.
+            </p>
+            <p>
+                The accumulator pattern allows fixed timestep to handle variable frame rates: accumulate frame time,
+                update in fixed steps until accumulator is depleted. This maintains determinism while adapting to
+                performance variations.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Include Gravity?</h2>
+            <p>
+                Gravity (acceleration) is included in this demo for several important reasons:
+            </p>
+            <ul>
+                <li><strong>Amplifies Timestep Differences:</strong> Acceleration compounds over time. Small differences in timestep lead to larger position differences, making the fixed vs variable timestep divergence more visible and dramatic.</li>
+                <li><strong>Real-World Relevance:</strong> Most games use gravity for physics simulation. This demo shows how timestep choice affects real game scenarios, not just theoretical examples.</li>
+                <li><strong>Demonstrates Accumulation Error:</strong> With constant velocity, timestep differences are linear. With acceleration, errors accumulate quadratically, showing why fixed timestep matters for physics accuracy.</li>
+                <li><strong>Visual Clarity:</strong> The desync visualization (connecting lines and heatmap) becomes more meaningful when particles diverge significantly. Gravity ensures visible divergence occurs quickly.</li>
+                <li><strong>Performance Impact:</strong> Variable timestep with gravity can cause "spiral of death" - slow frames cause larger timesteps, which make physics more expensive, causing even slower frames. Fixed timestep prevents this.</li>
+            </ul>
+            <p>
+                <strong>Try it yourself:</strong> Set gravity to 0 and watch how the desync becomes minimal. Then increase gravity and observe how quickly the two simulations diverge. This demonstrates why fixed timestep is essential for physics-heavy games.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Determinism:</strong> Fixed timestep ensures same result every time</li>
+                <li><strong>Replay/Networking:</strong> Deterministic simulation enables perfect replays</li>
+                <li><strong>Frame Independence:</strong> Physics work correctly at any FPS</li>
+                <li><strong>Stability:</strong> Fixed timestep prevents numerical instability</li>
+                <li><strong>Debugging:</strong> Reproducible behavior makes bugs easier to find</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Fixed Timestep:</strong> Update interval (typically 1/60s = 16.67ms)</li>
+                <li><strong>Accumulator:</strong> Stores leftover time between frames</li>
+                <li><strong>Gravity:</strong> Force applied each timestep</li>
+                <li><strong>Bounce Damping:</strong> Energy loss on collision</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Spiral of Death:</strong> Slow frames cause multiple updates, making it slower</li>
+                <li><strong>Desync:</strong> Variable timestep causes different results on different machines</li>
+                <li><strong>Too small timestep:</strong> Many updates per frame, performance issues</li>
+                <li><strong>Too large timestep:</strong> Physics becomes unstable, objects tunnel through walls</li>
+                <li><strong>Mixed timesteps:</strong> Some systems fixed, others variable causes desync</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                Fixed timestep performance depends on update frequency and complexity. If frame time exceeds timestep,
+                multiple updates occur per frame. Worst case: frame takes longer than timestep, causing spiral of death.
+            </p>
+            <p>
+                Variable timestep is O(1) per frame but non-deterministic. Fixed timestep is O(n) where n = frame_time / timestep.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Substepping:</strong> Multiple physics steps per frame</li>
+                <li><strong>Interpolation:</strong> Smooth rendering between fixed updates</li>
+                <li><strong>Event Queues:</strong> Time-sorted events for discrete simulation</li>
+                <li><strong>Time Dilation:</strong> Slow motion effects</li>
+                <li><strong>Time Rewind:</strong> Deterministic replay for undo/rewind</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>Box2D:</strong> Physics engine with fixed timestep</li>
+                <li><strong>Unity:</strong> Built-in fixed timestep support</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens when frame time > timestep? Spiral of death?</li>
+                <li>Where does determinism break? Floating point errors, variable timestep?</li>
+                <li>How do different frame rates affect simulation? 30 FPS vs 144 FPS?</li>
+                <li>Which parameter dominates? Timestep size or update complexity?</li>
+                <li>What's the optimal timestep? Too small vs too large?</li>
+                <li>How does desync accumulate? Over seconds, minutes, hours?</li>
+                <li>Can we guarantee determinism? Or is approximate acceptable?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { TimeSimulation } from '../js/demos/TimeSimulation.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new TimeSimulation(framework);
+    </script>
+</body>
+</html>

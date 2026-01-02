@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probability & Randomness - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Probability & Randomness
+            </div>
+            <h1>Probability & Randomness</h1>
+            <p>Weighted RNG, Poisson disk sampling, and blue noise distributions</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Weighted random number generation allows selecting outcomes with different probabilities. Unlike
+                uniform random, weighted RNG gives control over distribution. The histogram shows actual vs expected
+                distribution, revealing bias and fairness.
+            </p>
+            <p>
+                Poisson disk sampling creates evenly-spaced points with guaranteed minimum distance. This prevents
+                clustering and creates visually pleasing, blue noise distributions ideal for procedural placement.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Loot Tables:</strong> Weighted drops with controlled rarity</li>
+                <li><strong>Procedural Placement:</strong> Even distribution of objects, enemies, resources</li>
+                <li><strong>Fairness:</strong> Ensure players get expected outcomes over time</li>
+                <li><strong>Visual Quality:</strong> Blue noise prevents visible patterns</li>
+                <li><strong>Performance:</strong> Simple algorithms, fast execution</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Weights:</strong> Relative probabilities of each outcome</li>
+                <li><strong>Poisson Radius:</strong> Minimum distance between points</li>
+                <li><strong>Samples:</strong> Number of random calls per frame</li>
+                <li><strong>Seed:</strong> Determines sequence (affects fairness perception)</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Poor seeding:</strong> Bad seeds create visible patterns</li>
+                <li><strong>Small sample size:</strong> Distribution doesn't converge to expected</li>
+                <li><strong>Extreme weights:</strong> Very small weights rarely trigger</li>
+                <li><strong>Poisson rejection:</strong> High density causes many failed attempts</li>
+                <li><strong>Perception bias:</strong> Players see streaks even with fair RNG</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                Weighted RNG is O(n) for n outcomes, but can be optimized to O(log n) with binary search on
+                cumulative distribution. Poisson disk sampling is O(n²) naive, but spatial hashing reduces to O(n).
+            </p>
+            <p>
+                Memory is O(n) for storing samples and distributions. For real-time, limit history size.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Alias Method:</strong> O(1) weighted sampling after O(n) setup</li>
+                <li><strong>Blue Noise:</strong> Optimal Poisson disk for visual quality</li>
+                <li><strong>Stratified Sampling:</strong> Divide space into equal regions</li>
+                <li><strong>Low-discrepancy Sequences:</strong> Quasi-random for better coverage</li>
+                <li><strong>Pseudo-random:</strong> Deterministic sequences that appear random</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>d3-random:</strong> Various random distributions</li>
+                <li><strong>poisson-disk-sampling:</strong> JavaScript implementation</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens with extreme weights? 1% vs 99% probability?</li>
+                <li>Where does randomness break? Visible patterns, poor seeds?</li>
+                <li>How do players perceive fairness? Streaks vs actual distribution?</li>
+                <li>Which parameter dominates? Weights or sample size?</li>
+                <li>What's the minimum sample size? When does distribution converge?</li>
+                <li>How does Poisson radius affect density? Too small vs too large?</li>
+                <li>Can we guarantee fairness? Or is perception more important?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { ProbabilityRandomness } from '../js/demos/ProbabilityRandomness.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new ProbabilityRandomness(framework);
+    </script>
+</body>
+</html>

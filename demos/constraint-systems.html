@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constraint Systems - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Constraint Systems
+            </div>
+            <h1>Constraint Systems</h1>
+            <p>Wave Function Collapse with entropy visualization</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Wave Function Collapse (WFC) generates patterns by collapsing possibilities based on constraints.
+                Starting with all possibilities, it repeatedly picks the cell with lowest entropy (fewest options),
+                collapses it to a single value, and propagates constraints to neighbors.
+            </p>
+            <p>
+                The entropy heatmap visualizes uncertainty: bright red = many possibilities, dark blue = few possibilities,
+                black = collapsed. This makes the algorithm's decision-making process visible.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Procedural Generation:</strong> Create coherent patterns from examples</li>
+                <li><strong>Tile-based Worlds:</strong> Generate dungeons, cities, landscapes</li>
+                <li><strong>Constraint Satisfaction:</strong> Ensure local consistency</li>
+                <li><strong>Example-based:</strong> Learn patterns from sample images</li>
+                <li><strong>Backtracking:</strong> Handle contradictions gracefully</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Collapse Speed:</strong> How fast the algorithm progresses</li>
+                <li><strong>Constraints:</strong> Rules defining valid adjacencies</li>
+                <li><strong>Entropy:</strong> Number of remaining possibilities per cell</li>
+                <li><strong>Propagation:</strong> How constraints spread to neighbors</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Contradictions:</strong> No valid tile for a cell (requires backtracking)</li>
+                <li><strong>Insufficient constraints:</strong> Too many possibilities, slow convergence</li>
+                <li><strong>Over-constrained:</strong> No valid solutions exist</li>
+                <li><strong>Poor tile set:</strong> Tiles don't connect properly</li>
+                <li><strong>Performance:</strong> Large grids with many tile types are expensive</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                WFC is O(n²) in worst case, but typically much better due to constraint propagation. Each collapse
+                can trigger cascading propagations. For large grids, use chunking or hierarchical WFC.
+            </p>
+            <p>
+                Memory scales with grid size and tile count. Each cell stores a list of possible tiles.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Model Synthesis:</strong> Similar constraint-based generation</li>
+                <li><strong>Markov Chains:</strong> Probabilistic tile placement</li>
+                <li><strong>Graph Grammars:</strong> Rule-based pattern generation</li>
+                <li><strong>Backtracking Search:</strong> Handle contradictions</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>mxgmn/WaveFunctionCollapse:</strong> Original implementation</li>
+                <li><strong>Oskar Stålberg:</strong> Interactive WFC demos</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens when constraints conflict? How does backtracking work?</li>
+                <li>Where does WFC break? Contradictions, infinite loops?</li>
+                <li>How could players exploit deterministic WFC? Predict patterns?</li>
+                <li>Which parameter dominates? Constraint strength or entropy selection?</li>
+                <li>What's the optimal entropy selection? Random vs lowest?</li>
+                <li>How do tile sets affect generation? Too few vs too many tiles?</li>
+                <li>Can we guarantee valid solutions? Or is backtracking always needed?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { WaveFunctionCollapse } from '../js/demos/WaveFunctionCollapse.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600,
+            showStep: true
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new WaveFunctionCollapse(framework);
+    </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth & Natural Forms - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Growth & Natural Forms
+            </div>
+            <h1>Growth & Natural Forms</h1>
+            <p>L-systems, Phyllotaxis, and procedural plant generation</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                L-systems (Lindenmayer systems) model biological growth through string rewriting. Starting with an axiom,
+                rules recursively replace symbols to generate complex branching structures. Each iteration adds detail,
+                creating fractal-like natural forms.
+            </p>
+            <p>
+                Phyllotaxis describes the spiral arrangement of leaves, seeds, or petals. The golden angle (137.5°)
+                creates optimal packing, seen in sunflowers, pinecones, and many plants. This pattern emerges from
+                simple mathematical rules.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Procedural Plants:</strong> Generate infinite variety of trees, flowers, and vegetation</li>
+                <li><strong>Natural Aesthetics:</strong> Create organic, believable environments</li>
+                <li><strong>Memory Efficiency:</strong> Store rules, not full geometry</li>
+                <li><strong>Scalable Detail:</strong> Generate at different LODs by changing iterations</li>
+                <li><strong>Artistic Control:</strong> Tweak rules to create specific styles</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Iterations:</strong> More iterations = more detail, but exponential growth</li>
+                <li><strong>Branch Angle:</strong> Controls spread of branches</li>
+                <li><strong>Branch Length:</strong> Size of each segment</li>
+                <li><strong>Phyllotaxis Angle:</strong> Spiral angle (137.5° is golden angle)</li>
+                <li><strong>Rules:</strong> Define how symbols transform</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Too many iterations:</strong> Exponential string growth causes memory/performance issues</li>
+                <li><strong>Poor rule design:</strong> Rules that don't terminate create infinite loops</li>
+                <li><strong>Extreme angles:</strong> Very large angles create chaotic, unrealistic forms</li>
+                <li><strong>No termination:</strong> Missing base case in recursive rules</li>
+                <li><strong>Stack overflow:</strong> Deep nesting in bracket notation</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                L-system string length grows exponentially with iterations. 5 iterations can produce strings with
+                millions of characters. Limit iterations to 3-5 for real-time rendering. Use stochastic rules carefully
+                as they prevent caching.
+            </p>
+            <p>
+                Phyllotaxis is O(n) for n points, making it very efficient. Can generate thousands of points in real-time.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Stochastic L-systems:</strong> Random rule selection for variation</li>
+                <li><strong>Context-sensitive L-systems:</strong> Rules depend on neighbors</li>
+                <li><strong>Parametric L-systems:</strong> Rules with parameters for continuous variation</li>
+                <li><strong>Space Colonization:</strong> Growth based on attraction points</li>
+                <li><strong>Reaction-Diffusion:</strong> Chemical patterns for leaf venation</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>L-Py:</strong> Python L-system framework</li>
+                <li><strong>Structure Synth:</strong> 3D L-system generator</li>
+                <li><strong>Context Free:</strong> Grammar-based art tool</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens at 10 iterations? How does string length explode?</li>
+                <li>Where do L-systems break? Stack overflow, infinite rules?</li>
+                <li>How could players exploit deterministic growth? Predictable patterns?</li>
+                <li>Which parameter dominates? Iterations, angle, or length?</li>
+                <li>What's the optimal phyllotaxis angle? Why 137.5°?</li>
+                <li>How do stochastic rules affect determinism? Can we still cache?</li>
+                <li>What's the minimum viable L-system? Simplest grammar?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { GrowthForms } from '../js/demos/GrowthForms.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600,
+            showStep: true
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new GrowthForms(framework);
+    </script>
+</body>
+</html>

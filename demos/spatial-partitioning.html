@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial Partitioning - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Spatial Partitioning
+            </div>
+            <h1>Spatial Partitioning</h1>
+            <p>Voronoi diagrams, Delaunay triangulation, and Lloyd relaxation</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Voronoi diagrams partition space into regions based on distance to seed points. Each region contains
+                all points closer to its seed than any other. Delaunay triangulation is the dual graph of Voronoi,
+                connecting points whose regions share boundaries.
+            </p>
+            <p>
+                Lloyd relaxation iteratively moves seed points to their Voronoi cell centroids, creating more
+                uniform, evenly-spaced partitions. This is essential for biome generation, territory mapping, and
+                procedural world division.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Biome Generation:</strong> Divide world into distinct regions with natural boundaries</li>
+                <li><strong>Territory Systems:</strong> Define player or AI-controlled areas</li>
+                <li><strong>Procedural Maps:</strong> Create varied, organic-looking regions</li>
+                <li><strong>Pathfinding:</strong> Use Voronoi cells as navigation nodes</li>
+                <li><strong>Resource Distribution:</strong> Ensure even spacing of important features</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Number of Points:</strong> More points = more regions, but slower computation</li>
+                <li><strong>Lloyd Relaxation:</strong> Iteratively improves spacing uniformity</li>
+                <li><strong>Relaxation Steps:</strong> More steps = more uniform, but may lose interesting variation</li>
+                <li><strong>Seed:</strong> Determines initial point placement</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Too many points:</strong> O(n²) complexity makes computation slow</li>
+                <li><strong>Over-relaxation:</strong> Too many Lloyd steps create boring, uniform grids</li>
+                <li><strong>Edge cases:</strong> Points near boundaries create infinite Voronoi cells</li>
+                <li><strong>Degenerate triangles:</strong> Collinear points break Delaunay triangulation</li>
+                <li><strong>Memory issues:</strong> Storing full Voronoi mesh for large point sets is expensive</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                Naive Voronoi computation is O(n²) per cell. Efficient algorithms (Fortune's sweep) achieve O(n log n),
+                but for real-time applications, limit to 50-100 points. Lloyd relaxation multiplies cost by iteration count.
+            </p>
+            <p>
+                For large worlds, use hierarchical approaches: generate Voronoi at multiple scales, or use spatial hashing
+                to only compute nearby regions.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Fortune's Algorithm:</strong> O(n log n) Voronoi construction</li>
+                <li><strong>Bowyer-Watson:</strong> Incremental Delaunay triangulation</li>
+                <li><strong>Centroidal Voronoi:</strong> Lloyd relaxation variant with better convergence</li>
+                <li><strong>Poisson Disk Sampling:</strong> Generate well-spaced points for Voronoi seeds</li>
+                <li><strong>Voronoi Noise:</strong> Use Voronoi distances as noise function</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>d3-voronoi:</strong> JavaScript Voronoi implementation</li>
+                <li><strong>delaunator:</strong> Fast Delaunay triangulation</li>
+                <li><strong>CGAL:</strong> C++ computational geometry library</li>
+                <li><strong>scipy.spatial:</strong> Python Voronoi and Delaunay</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens with 1000 points? How does performance degrade?</li>
+                <li>Where do Voronoi cells break? Edge cases, degenerate inputs?</li>
+                <li>How could players exploit deterministic partitioning? Predictable territories?</li>
+                <li>Which parameter dominates? Point count, relaxation, or seed?</li>
+                <li>What's the optimal relaxation count? When does it stop improving?</li>
+                <li>How do boundary conditions affect generation? Infinite vs bounded cells?</li>
+                <li>Can we guarantee minimum cell size? Maximum variation?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { SpatialPartitioning } from '../js/demos/SpatialPartitioning.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new SpatialPartitioning(framework);
+    </script>
+</body>
+</html>

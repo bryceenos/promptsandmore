@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs & Topology - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Graphs & Topology
+            </div>
+            <h1>Graphs & Topology</h1>
+            <p>Pathfinding, MSTs, and quest graph generation</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                A* pathfinding finds optimal paths by combining actual cost (g) with heuristic estimate (h).
+                It explores promising nodes first, balancing between Dijkstra's completeness and greedy best-first's speed.
+                The visualization shows open set (green), closed set (red), and the final path.
+            </p>
+            <p>
+                Step-by-step mode reveals the algorithm's decision-making: which nodes it considers, which it explores,
+                and how it builds the path incrementally. This makes the search process transparent.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>AI Navigation:</strong> Enemies and NPCs find paths to targets</li>
+                <li><strong>Player Guidance:</strong> Show waypoints and routes</li>
+                <li><strong>Procedural Levels:</strong> Ensure all areas are reachable</li>
+                <li><strong>Dynamic Obstacles:</strong> Recalculate when environment changes</li>
+                <li><strong>Hierarchical Pathfinding:</strong> Use at multiple scales</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Heuristic Weight:</strong> 1.0 = optimal, >1.0 = faster but suboptimal</li>
+                <li><strong>Obstacle Density:</strong> Affects path complexity and search time</li>
+                <li><strong>Step-by-Step:</strong> Control algorithm progression manually</li>
+                <li><strong>Cost Function:</strong> Uniform vs terrain-based costs</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>No path exists:</strong> Goal unreachable, algorithm exhausts search</li>
+                <li><strong>Poor heuristic:</strong> Overestimates cause suboptimal paths</li>
+                <li><strong>High obstacle density:</strong> Many dead ends slow search</li>
+                <li><strong>Dynamic obstacles:</strong> Path becomes invalid during execution</li>
+                <li><strong>Performance:</strong> Large grids with many obstacles are expensive</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                A* is O(b^d) worst case where b is branching factor and d is depth. In practice, good heuristics
+                dramatically reduce explored nodes. For large maps, use hierarchical pathfinding or jump point search.
+            </p>
+            <p>
+                Memory is O(n) for storing open/closed sets. Use efficient data structures (binary heap) for open set.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Dijkstra:</strong> Explores uniformly, guaranteed optimal</li>
+                <li><strong>Greedy Best-First:</strong> Uses only heuristic, fast but suboptimal</li>
+                <li><strong>Jump Point Search:</strong> Optimized for uniform-cost grids</li>
+                <li><strong>Theta*:</strong> Allows diagonal movement through obstacles</li>
+                <li><strong>Flow Fields:</strong> Pre-computed vector fields for many agents</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>pathfinding.js:</strong> JavaScript pathfinding library</li>
+                <li><strong>NavMesh:</strong> Navigation mesh generation and pathfinding</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens with no path? How does algorithm handle unreachable goals?</li>
+                <li>Where does A* break? Poor heuristics, dynamic obstacles?</li>
+                <li>How could players exploit pathfinding? Predictable routes?</li>
+                <li>Which parameter dominates? Heuristic weight or obstacle density?</li>
+                <li>What's the optimal heuristic weight? Speed vs optimality tradeoff?</li>
+                <li>How do obstacles affect performance? Sparse vs dense grids?</li>
+                <li>Can we guarantee optimal paths? Or is approximate acceptable?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { Pathfinding } from '../js/demos/Pathfinding.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600,
+            showStep: true
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new Pathfinding(framework);
+    </script>
+</body>
+</html>

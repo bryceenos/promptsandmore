@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent-Based Systems - promptsandmore.com</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Algorithms over content • Systems over scripts • Emergence over linear design</p>
+    </header>
+
+    <main class="demo-container">
+        <div class="demo-header">
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a> / Agent-Based Systems
+            </div>
+            <h1>Agent-Based Systems</h1>
+            <p>Boids, Flow-field following, and predator/prey simulations</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="visualization-panel" id="visualization"></div>
+            <div id="controls-container"></div>
+        </div>
+
+        <section class="info-section">
+            <h2>System Overview</h2>
+            <p>
+                Boids simulate flocking behavior through three simple rules: alignment (steer toward average heading),
+                cohesion (steer toward average position), and separation (avoid crowding). These local rules create
+                complex, emergent group behaviors like flocks, schools, and herds.
+            </p>
+            <p>
+                Each boid only perceives nearby neighbors, making the system scalable. The balance between forces
+                determines behavior: too much cohesion creates tight clusters, too much separation causes scattering.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Why Games Use This</h2>
+            <ul>
+                <li><strong>Crowd Simulation:</strong> Realistic group movement without scripting</li>
+                <li><strong>AI Behavior:</strong> Emergent tactics from simple rules</li>
+                <li><strong>Performance:</strong> O(n²) but can be optimized with spatial partitioning</li>
+                <li><strong>Variety:</strong> Different force weights create different behaviors</li>
+                <li><strong>Natural Appearance:</strong> Organic, believable movement</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Key Parameters</h2>
+            <ul>
+                <li><strong>Alignment:</strong> How strongly boids match neighbor velocities</li>
+                <li><strong>Cohesion:</strong> How strongly boids move toward group center</li>
+                <li><strong>Separation:</strong> How strongly boids avoid crowding</li>
+                <li><strong>Perception Radius:</strong> How far boids can "see" neighbors</li>
+                <li><strong>Max Speed/Force:</strong> Limits on movement and acceleration</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Failure Modes</h2>
+            <ul>
+                <li><strong>Too many boids:</strong> O(n²) neighbor checking becomes expensive</li>
+                <li><strong>Extreme forces:</strong> Unbalanced weights create chaotic or frozen behavior</li>
+                <li><strong>Small perception:</strong> Boids can't form groups</li>
+                <li><strong>Large perception:</strong> All boids influence each other, losing local behavior</li>
+                <li><strong>No spatial optimization:</strong> Checking all pairs is slow for large groups</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Scaling Behavior</h2>
+            <p>
+                Naive implementation is O(n²) per frame. Use spatial hashing or quadtrees to reduce to O(n) average case.
+                For 1000+ boids, spatial partitioning is essential. GPU implementations can handle 10,000+ boids.
+            </p>
+            <p>
+                Memory is O(n) for boid storage. Each boid needs position, velocity, and optional state.
+            </p>
+        </section>
+
+        <section class="info-section">
+            <h2>Related Algorithms</h2>
+            <ul>
+                <li><strong>Flow Fields:</strong> Boids follow vector fields instead of neighbors</li>
+                <li><strong>Steering Behaviors:</strong> Seek, flee, pursue, evade</li>
+                <li><strong>Reynolds Behaviors:</strong> Extended boid rules (wander, obstacle avoidance)</li>
+                <li><strong>Particle Systems:</strong> Similar but without social forces</li>
+                <li><strong>Pathfinding:</strong> Combine with A* for goal-directed movement</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>Free Tools & Libraries</h2>
+            <ul>
+                <li><strong>p5.js:</strong> Built-in examples and tutorials</li>
+                <li><strong>Unity DOTS:</strong> High-performance boids with ECS</li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2>System-Thinking Prompts</h2>
+            <ul>
+                <li>What happens with 1000 boids? How does performance degrade?</li>
+                <li>Where do boids break? Edge cases, extreme parameters?</li>
+                <li>How could players exploit predictable flocking? Predictable paths?</li>
+                <li>Which force dominates? Alignment, cohesion, or separation?</li>
+                <li>What's the optimal perception radius? Too small vs too large?</li>
+                <li>How do force weights affect behavior? What ratios create interesting patterns?</li>
+                <li>Can we guarantee interesting behavior? Or is it parameter tuning?</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Free • Open • Developer-Focused</p>
+    </footer>
+
+    <script type="module">
+        import { DemoFramework } from '../js/framework/DemoFramework.js';
+        import { Boids } from '../js/demos/Boids.js';
+
+        const framework = new DemoFramework('visualization', {
+            width: 800,
+            height: 600
+        });
+
+        const controlsContainer = document.getElementById('controls-container');
+        if (framework.controlsPanel) {
+            controlsContainer.appendChild(framework.controlsPanel);
+        }
+
+        const demo = new Boids(framework);
+    </script>
+</body>
+</html>
