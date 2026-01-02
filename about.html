@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Prompts & More - An interactive procedural systems playground for game developers. Learn what this site is, who it's for, and how to use it.">
+    <title>About - Prompts & More</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Prompts & More",
+        "description": "Interactive procedural systems playground for game developers"
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">promptsandmore.com</a></h1>
+        <p class="tagline">Click. Tweak. Observe. Understand.</p>
+    </header>
+    
+    <main>
+        <section class="about-content">
+            <h1>What Is Prompts & More?</h1>
+            
+            <p class="lead">
+                <strong>Prompts & More is an interactive procedural systems playground for game developers.</strong> 
+                It features live visual demos of algorithms like Perlin noise, Voronoi diagrams, cellular automata, 
+                L-systems, Wave Function Collapse, and agent-based simulations.
+            </p>
+            
+            <h2>What "Prompts" Means Here</h2>
+            <p>
+                In this context, "prompts" refers to <strong>system prompts</strong> — starting conditions and parameters 
+                for procedural algorithms, not AI text prompts. Each visualizer lets you adjust parameters (prompts) 
+                and immediately see how the algorithm responds.
+            </p>
+            <p>
+                <strong>All code is shared and open.</strong> Every visualizer includes a "Show Code" button that exports 
+                the current state as runnable JavaScript code. You can take this code and:
+            </p>
+            <ul>
+                <li><strong>Ask for modifications</strong> - Request specific changes or features you need</li>
+                <li><strong>Refactor to your language</strong> - Translate the algorithms to C#, Lua, Python, Rust, or any language your engine uses</li>
+                <li><strong>Point to the source</strong> - Reference <a href="https://promptsandmore.com">promptsandmore.com</a> or link to specific demo pages when sharing or citing the algorithms</li>
+            </ul>
+            <p>
+                The code is designed to be clear and educational, making it easy to understand and adapt to your specific 
+                game engine or framework. Whether you're using Unity, Godot, PICO-8, or any other engine listed on our 
+                <a href="index.html#tools">tools page</a>, you can take these algorithms and implement them in your project.
+            </p>
+            
+            <h2>Who This Is For</h2>
+            <ul>
+                <li><strong>Game developers</strong> exploring procedural generation techniques</strong></li>
+                <li><strong>Students and researchers</strong> studying algorithms and emergent behavior</strong></li>
+                <li><strong>Technical hobbyists</strong> interested in visual experimentation with math and computer science</strong></li>
+                <li><strong>Procedural content designers</strong> looking to understand algorithmic generation</strong></li>
+            </ul>
+            
+            <h2>What Makes This Different</h2>
+            <ul>
+                <li><strong>Interactive, not just descriptive:</strong> Click parameters, see results instantly</strong></li>
+                <li><strong>Visualization over abstraction:</strong> See algorithms in action, not just read about them</strong></li>
+                <li><strong>Code export:</strong> Every demo can export its current state as runnable code</strong></li>
+                <li><strong>No backend required:</strong> Everything runs client-side in your browser</strong></li>
+                <li><strong>Free and open:</strong> No monetization, no paywalls, no tracking</strong></li>
+            </ul>
+            
+            <h2>Algorithms Covered</h2>
+            <p>The site includes interactive visualizers for:</p>
+            <ul>
+                <li><strong>Noise & Fields:</strong> Perlin noise, Simplex noise, Voronoi noise, flow fields, terrain generation</li>
+                <li><strong>Spatial Partitioning:</strong> Voronoi diagrams, Delaunay triangulation, Lloyd relaxation, biome generation</li>
+                <li><strong>Growth & Natural Forms:</strong> L-systems (Lindenmayer systems), phyllotaxis, procedural plant generation</li>
+                <li><strong>Constraint Systems:</strong> Wave Function Collapse, entropy visualization, constraint satisfaction</li>
+                <li><strong>Emergent Simulation:</strong> Cellular automata (like Conway's Game of Life), reaction-diffusion, cave generation</li>
+                <li><strong>Agent-Based Systems:</strong> Boids (flocking behavior), flow-field following, predator/prey simulations</li>
+                <li><strong>Probability & Randomness:</strong> Weighted random number generation, Poisson disk sampling, blue noise</li>
+                <li><strong>Graphs & Topology:</strong> A* pathfinding, minimum spanning trees, quest graph generation</li>
+                <li><strong>3D Generative Worlds:</strong> Heightfields, voxels, signed distance fields (SDFs), planetary generation</li>
+                <li><strong>Time & Simulation:</strong> Fixed vs variable timestep, event queues, deterministic simulations</li>
+            </ul>
+            
+            <h2>Use Cases</h2>
+            <ul>
+                <li><strong>Biome generation</strong> for open-world games</li>
+                <li><strong>Territory mapping</strong> and spatial partitioning</li>
+                <li><strong>Procedural plant and tree generation</strong></li>
+                <li><strong>Tile-based level generation</strong> with constraints</li>
+                <li><strong>Crowd simulation</strong> and agent behavior</li>
+                <li><strong>Resource distribution</strong> and point sampling</li>
+                <li><strong>Pathfinding</strong> and navigation mesh generation</li>
+                <li><strong>Procedural world generation</strong> at scale</li>
+                <li><strong>Physics simulation</strong> and timestep management</li>
+            </ul>
+            
+            <h2>How to Use This Site</h2>
+            <ol>
+                <li><strong>Browse categories</strong> on the homepage to find algorithms you're interested in</li>
+                <li><strong>Click any category</strong> to open an interactive visualizer</li>
+                <li><strong>Adjust parameters</strong> using sliders and toggles to see how the algorithm responds</li>
+                <li><strong>Click "Show Code"</strong> to export the current state as runnable JavaScript code</li>
+                <li><strong>Read the explanations</strong> below each visualizer to understand failure modes, scaling behavior, and related algorithms</li>
+            </ol>
+            
+            <h2>Technical Details</h2>
+            <p>
+                All visualizers run entirely client-side using vanilla JavaScript, HTML5 Canvas, and WebGL (Three.js for 3D demos). 
+                No backend, no build step, no dependencies beyond what's included. The code is modular ES6 modules that can be 
+                easily adapted to any game engine or framework.
+            </p>
+            
+            <h2>Philosophy</h2>
+            <p>
+                This site emphasizes <strong>algorithms over content</strong> — understanding how systems work, not just what 
+                they produce. It favors <strong>systems over scripts</strong> — emergent behavior from simple rules. It prioritizes 
+                <strong>interactive over descriptive</strong> — touch parameters, see results immediately. And it values 
+                <strong>visualization over abstraction</strong> — see algorithms in action.
+            </p>
+            
+            <p class="back-link">
+                <a href="index.html">← Back to Home</a>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Developer-Focused</p>
+    </footer>
+</body>
+</html>
+

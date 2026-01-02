@@ -167,6 +167,138 @@ main {
     color: var(--text-primary);
 }
 
+.tools {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.tools h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.tools .section-intro {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.tool-category {
+    background: var(--bg-tertiary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+.tool-category h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.tool-category ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tool-category ul.engine-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tool-category li {
+    margin: 0.75rem 0;
+    padding: 0;
+    position: relative;
+}
+
+.engine-toggle {
+    background: none;
+    border: none;
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    position: relative;
+    transition: opacity 0.2s ease;
+}
+
+.engine-toggle strong {
+    color: var(--accent);
+}
+
+.engine-toggle::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    transition: transform 0.2s ease;
+}
+
+.engine-toggle:hover {
+    opacity: 0.8;
+}
+
+.engine-toggle:hover::before {
+    transform: translateX(2px);
+}
+
+.engine-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.engine-details.expanded {
+    max-height: 1000px;
+}
+
+.engine-details p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin: 0.75rem 0;
+}
+
+.engine-details p:first-child {
+    margin-top: 0;
+}
+
+.engine-details a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.engine-details a:hover {
+    text-decoration: underline;
+}
+
+.tool-category strong {
+    color: var(--text-primary);
+}
+
+.tools-note {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    font-style: italic;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
 .blog {
     margin: 4rem 0;
     padding: 2rem;
@@ -222,6 +354,13 @@ footer {
 
 .demo-header .breadcrumb a:hover {
     text-decoration: underline;
+}
+
+.demo-header .demo-description {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-top: 1rem;
+    max-width: 800px;
 }
 
 .demo-content {
@@ -384,5 +523,72 @@ footer {
     background: none;
     padding: 0;
     color: var(--text-primary);
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.about-content h1 {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.about-content h2 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.about-content .lead {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+}
+
+.about-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.about-content ul, .about-content ol {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.about-content li {
+    margin: 0.75rem 0;
+}
+
+.about-content strong {
+    color: var(--text-primary);
+}
+
+.about-content .back-link {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
+.about-content .back-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.about-content .back-link a:hover {
+    text-decoration: underline;
 }
 

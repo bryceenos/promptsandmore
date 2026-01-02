@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>promptsandmore.com - Procedural Systems Playground</title>
+    <meta name="description" content="Interactive procedural systems playground for game developers. Live visual demos of algorithms like Perlin noise, Voronoi diagrams, cellular automata, L-systems, Wave Function Collapse, and agent-based simulations. Free, open-source algorithm visualization tools.">
+    <meta name="keywords" content="procedural generation, algorithm visualization, game development tools, generative systems, Perlin noise, Voronoi diagrams, cellular automata, L-systems, Wave Function Collapse, boids, pathfinding, game dev resources">
+    <title>Prompts & More - Interactive Procedural Systems Playground for Game Developers</title>
     <link rel="stylesheet" href="css/main.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Prompts & More",
+        "url": "https://promptsandmore.com",
+        "description": "Interactive procedural systems playground for game developers featuring live visual demos of algorithms like Perlin noise, Voronoi diagrams, cellular automata, and agent-based simulations.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Prompts & More"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Prompts & More",
+        "description": "Free interactive algorithm visualization tools for procedural generation and game development",
+        "educationalUse": "Interactive learning",
+        "learningResourceType": "Interactive simulation",
+        "audience": {
+            "@type": "EducationalAudience",
+            "educationalRole": "game developer, student, researcher"
+        }
+    }
+    </script>
 </head>
 <body>
     <header>
@@ -14,8 +43,9 @@
     
     <main>
         <section class="intro">
-            <h2>Interactive Algorithm Visualizers</h2>
-            <p class="emphasis">Developer-focused playground for non-linear systems, procedural generation, and algorithm-driven game design.</p>
+            <h1>Interactive Procedural Systems Playground for Game Developers</h1>
+            <p class="emphasis">Live visual demos of algorithms like Perlin noise, Voronoi diagrams, cellular automata, L-systems, Wave Function Collapse, and agent-based simulations. Click parameters, see results instantly.</p>
+            <p style="margin-top: 1rem;"><a href="about.html" style="color: var(--accent); text-decoration: none;">Learn more about this site →</a></p>
         </section>
 
         <section class="categories">
@@ -74,6 +104,268 @@
             </ul>
         </section>
 
+        <section class="tools">
+            <h2>Game Development Tools & Engines</h2>
+            <p class="section-intro">These algorithm visualizers work with any game engine. All algorithms can be implemented in code-based or node-based engines:</p>
+            
+            <div class="tool-category">
+                <h3>Code-Based Engines</h3>
+                <ul class="engine-list">
+                    <li>
+                        <button class="engine-toggle" data-engine="pico8">
+                            <strong>PICO-8</strong> - Fantasy console (Lua). Desktop/web export. Perfect for procedural experiments, tiny codebase, instant iteration.
+                        </button>
+                        <div class="engine-details" id="pico8">
+                            <p>PICO-8 is a fantasy console for making, sharing, and playing tiny games and other computer programs. It features a built-in code editor, sprite editor, sound editor, and map editor, all accessible through a command-line interface. The entire game or program fits in a single cartridge file, making it perfect for procedural generation experiments where you want to see results quickly. The Lua scripting language is simple yet powerful, and the 128x128 pixel display with 16-color palette encourages creative algorithmic thinking.</p>
+                            <p><a href="https://www.lexaloffle.com/pico-8.php" target="_blank" rel="noopener noreferrer">Visit PICO-8 website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="tic80">
+                            <strong>TIC-80</strong> - Fantasy console (Lua/JavaScript/MoonScript). Desktop/web export. Great for quick procedural prototypes.
+                        </button>
+                        <div class="engine-details" id="tic80">
+                            <p>TIC-80 is a free and open-source fantasy computer for making, playing, and sharing tiny games. It includes built-in development tools like a code editor, sprite editor, map editor, sound editor, and music tracker. Unlike PICO-8, TIC-80 supports multiple scripting languages including Lua, JavaScript, MoonScript, Wren, Squirrel, and Fennel, giving you flexibility in how you implement procedural algorithms. The retro aesthetic and constraints make it ideal for rapid prototyping of procedural systems.</p>
+                            <p><a href="https://tic80.com" target="_blank" rel="noopener noreferrer">Visit TIC-80 website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="love2d">
+                            <strong>LÖVE (Love2D)</strong> - Lua framework. Desktop/mobile. Great for rapid prototyping of procedural systems.
+                        </button>
+                        <div class="engine-details" id="love2d">
+                            <p>LÖVE is an open-source framework for making 2D games in Lua. It's lightweight, fast, and has no external dependencies, making it perfect for procedural generation experiments. The framework provides simple, intuitive APIs for graphics, audio, input, and window management, allowing you to focus on implementing algorithms rather than low-level details. With a strong community and extensive documentation, LÖVE is excellent for learning procedural generation techniques and quickly iterating on ideas.</p>
+                            <p><a href="https://love2d.org" target="_blank" rel="noopener noreferrer">Visit LÖVE website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="defold">
+                            <strong>Defold</strong> - Lua-based engine. Mobile/desktop/web. Popular for mobile games, excellent for procedural content.
+                        </button>
+                        <div class="engine-details" id="defold">
+                            <p>Defold is a free, cross-platform game engine with a focus on 2D games. Originally developed by King and now maintained by the Defold Foundation, it uses Lua for scripting and provides a powerful editor with live reload capabilities. The engine is particularly strong for mobile development, with excellent performance on iOS and Android. Its component-based architecture and message-passing system make it well-suited for procedural systems where you need to manage many interacting entities or generate content dynamically.</p>
+                            <p><a href="https://defold.com" target="_blank" rel="noopener noreferrer">Visit Defold website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="solar2d">
+                            <strong>Solar2D</strong> - Lua framework (formerly Corona SDK). Mobile/desktop. Cross-platform, strong mobile support.
+                        </button>
+                        <div class="engine-details" id="solar2d">
+                            <p>Solar2D (formerly Corona SDK) is a cross-platform framework for building mobile and desktop apps using Lua. It's completely free and open-source, with a focus on ease of use and rapid development. The framework provides a simple API that abstracts away platform-specific details, allowing you to write procedural generation code once and deploy it to iOS, Android, Windows, macOS, and more. With strong performance and an active community, Solar2D is great for mobile games that use procedural content generation.</p>
+                            <p><a href="https://solar2d.com" target="_blank" rel="noopener noreferrer">Visit Solar2D website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="phaser">
+                            <strong>Phaser</strong> - JavaScript/TypeScript framework. Web-based. Perfect for browser-based procedural demos.
+                        </button>
+                        <div class="engine-details" id="phaser">
+                            <p>Phaser is a fast, free, and fun open-source framework for creating Canvas and WebGL powered browser games. It's written in JavaScript and supports TypeScript, making it accessible to web developers familiar with modern JavaScript. The framework includes physics engines, input handling, audio, and a robust scene management system. Since it runs entirely in the browser, Phaser is perfect for sharing procedural generation demos online without requiring users to download anything. The active community and extensive plugin ecosystem make it easy to extend for specialized procedural needs.</p>
+                            <p><a href="https://phaser.io" target="_blank" rel="noopener noreferrer">Visit Phaser website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="threejs">
+                            <strong>Three.js</strong> - JavaScript 3D library. Web-based. Perfect for procedural 3D worlds in the browser.
+                        </button>
+                        <div class="engine-details" id="threejs">
+                            <p>Three.js is a cross-browser JavaScript library and API used to create and display animated 3D computer graphics in a web browser using WebGL. It's not a full game engine, but rather a powerful 3D library that makes WebGL accessible. For procedural generation, Three.js excels at creating 3D worlds, terrains, and structures algorithmically. You can generate geometry, apply materials, set up lighting, and render complex procedural scenes entirely in the browser. The library has a large community and extensive examples, making it ideal for learning 3D procedural generation techniques.</p>
+                            <p><a href="https://threejs.org" target="_blank" rel="noopener noreferrer">Visit Three.js website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="babylon">
+                            <strong>Babylon.js</strong> - TypeScript/JavaScript 3D engine. Web-based. Powerful web-based procedural generation.
+                        </button>
+                        <div class="engine-details" id="babylon">
+                            <p>Babylon.js is a powerful, beautiful, simple, and open game and rendering engine packed into a friendly JavaScript framework. It's built with TypeScript and provides a complete 3D engine for the web, including physics, audio, particle systems, and more. The engine is particularly strong for procedural generation because of its robust geometry manipulation APIs, material system, and built-in tools for creating complex scenes. With excellent documentation and an active community, Babylon.js is a great choice for web-based procedural 3D content generation.</p>
+                            <p><a href="https://www.babylonjs.com" target="_blank" rel="noopener noreferrer">Visit Babylon.js website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="playcanvas">
+                            <strong>PlayCanvas</strong> - Web-based 3D engine. JavaScript, cloud-based editor, great for procedural demos.
+                        </button>
+                        <div class="engine-details" id="playcanvas">
+                            <p>PlayCanvas is a browser-based, real-time collaborative WebGL game engine. It features a cloud-based editor that runs entirely in your browser, allowing you to work on projects from any device. The engine is open-source and free for most use cases, with excellent performance for web-based 3D games and applications. For procedural generation, PlayCanvas provides powerful APIs for creating geometry, managing scenes, and rendering complex procedural worlds. The collaborative editing features make it easy to share and iterate on procedural generation projects with team members.</p>
+                            <p><a href="https://playcanvas.com" target="_blank" rel="noopener noreferrer">Visit PlayCanvas website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="godot">
+                            <strong>Godot</strong> - GDScript or C#. Desktop/mobile/web. Excellent for procedural world generation with built-in tools.
+                        </button>
+                        <div class="engine-details" id="godot">
+                            <p>Godot is a free and open-source game engine that provides a complete set of tools for game development. It uses a custom scripting language called GDScript (similar to Python) and also supports C#. The engine features a scene-based architecture that's intuitive for organizing procedural systems, and includes built-in tools for 2D and 3D rendering, physics, audio, and more. Godot's node system and signal-based communication make it well-suited for procedural generation, where you need to dynamically create and connect game objects. The engine is completely free with no royalties or restrictions.</p>
+                            <p><a href="https://godotengine.org" target="_blank" rel="noopener noreferrer">Visit Godot website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="unity">
+                            <strong>Unity</strong> - C# scripting. Desktop/mobile/web/console. Industry standard, massive procedural generation community.
+                        </button>
+                        <div class="engine-details" id="unity">
+                            <p>Unity is one of the world's most popular game engines, used by both indie developers and AAA studios. It uses C# for scripting and provides a comprehensive set of tools for 2D and 3D game development. Unity has an enormous asset store with many procedural generation tools and plugins, and a massive community that shares techniques and code. The engine's component-based architecture works well for procedural systems, and its built-in tools for terrain generation, particle systems, and animation make it powerful for procedural content creation. Unity offers both free and paid tiers depending on your needs.</p>
+                            <p><a href="https://unity.com" target="_blank" rel="noopener noreferrer">Visit Unity website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="unreal">
+                            <strong>Unreal Engine</strong> - C++/Blueprints. Desktop/mobile/console. Powerful for large-scale procedural worlds.
+                        </button>
+                        <div class="engine-details" id="unreal">
+                            <p>Unreal Engine is a powerful, industry-leading game engine developed by Epic Games. It's free to use (with royalties on commercial products after a certain revenue threshold) and provides cutting-edge graphics capabilities. Unreal uses C++ for performance-critical code and Blueprints (visual scripting) for gameplay logic. The engine is particularly strong for large-scale procedural worlds, with built-in tools for landscape generation, foliage systems, and world partitioning. Unreal's Material Editor and Blueprint system make it possible to create complex procedural systems without writing code, though C++ is available for maximum performance.</p>
+                            <p><a href="https://www.unrealengine.com" target="_blank" rel="noopener noreferrer">Visit Unreal Engine website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="cocos2d">
+                            <strong>Cocos2d</strong> - C++/JavaScript/Lua framework. Mobile/desktop/web. Popular for mobile, good for procedural systems.
+                        </button>
+                        <div class="engine-details" id="cocos2d">
+                            <p>Cocos2d is a family of open-source game frameworks, with Cocos2d-x (C++), Cocos Creator (JavaScript/TypeScript), and Cocos2d-lua (Lua) being the main variants. The framework is particularly popular in mobile game development, especially in Asia, and provides excellent performance on iOS and Android. Cocos Creator includes a visual editor and supports both 2D and 3D development. The framework's scene graph system and action system work well for procedural generation, allowing you to dynamically create and animate game objects. With strong cross-platform support, Cocos2d is a solid choice for mobile procedural games.</p>
+                            <p><a href="https://www.cocos.com" target="_blank" rel="noopener noreferrer">Visit Cocos2d website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="bevy">
+                            <strong>Bevy</strong> - Rust ECS-based engine. Desktop/web. Modern, performant, great for algorithm-heavy procedural work.
+                        </button>
+                        <div class="engine-details" id="bevy">
+                            <p>Bevy is a modern, data-driven game engine built in Rust. It uses an Entity Component System (ECS) architecture, which is particularly well-suited for procedural generation where you need to manage many entities with different combinations of components. Bevy is completely free and open-source, with no strings attached. The Rust language provides memory safety and excellent performance, making it ideal for algorithm-heavy procedural work. While Bevy is newer than many engines, it has a rapidly growing community and is designed with modern game development practices in mind. The engine supports both 2D and 3D rendering and can compile to WebAssembly for web deployment.</p>
+                            <p><a href="https://bevyengine.org" target="_blank" rel="noopener noreferrer">Visit Bevy website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="raylib">
+                            <strong>Raylib</strong> - C/C++ framework. Desktop/web. Minimal, fast, perfect for algorithm-focused projects.
+                        </button>
+                        <div class="engine-details" id="raylib">
+                            <p>Raylib is a simple and easy-to-use library to learn videogames programming. It's written in C and provides bindings for many languages including C++, C#, Go, Python, and more. Raylib is designed to be minimal and educational, with a simple API that doesn't get in your way. This makes it perfect for procedural generation projects where you want to focus on algorithms rather than engine complexity. The library includes functions for 2D and 3D rendering, input handling, audio, and more, all in a lightweight package. Raylib is completely free and open-source.</p>
+                            <p><a href="https://www.raylib.com" target="_blank" rel="noopener noreferrer">Visit Raylib website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="sfml">
+                            <strong>SFML</strong> - C++ multimedia library. Desktop. Low-level control for custom procedural systems.
+                        </button>
+                        <div class="engine-details" id="sfml">
+                            <p>SFML (Simple and Fast Multimedia Library) is a cross-platform software development library designed to provide a simple interface to various multimedia components of your PC. It's written in C++ and provides bindings for many languages. SFML gives you low-level control over graphics, audio, input, and networking, making it ideal for procedural generation projects where you need fine-grained control over rendering. The library is object-oriented and well-documented, with a clean API that's easy to learn. SFML is free and open-source, making it a great choice for learning and prototyping procedural algorithms.</p>
+                            <p><a href="https://www.sfml-dev.org" target="_blank" rel="noopener noreferrer">Visit SFML website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="sdl2">
+                            <strong>SDL2</strong> - C/C++ cross-platform library. Desktop/mobile. Foundation for building custom procedural tools.
+                        </button>
+                        <div class="engine-details" id="sdl2">
+                            <p>SDL (Simple DirectMedia Layer) is a cross-platform development library designed to provide low-level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D. It's written in C and works with C++, and provides bindings for many other languages. SDL is the foundation for many game engines and frameworks, giving you maximum control over your application. For procedural generation, SDL provides the building blocks you need to create custom rendering pipelines and input handling. The library is free and open-source, and is used by many commercial games and applications.</p>
+                            <p><a href="https://www.libsdl.org" target="_blank" rel="noopener noreferrer">Visit SDL2 website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="monogame">
+                            <strong>Monogame</strong> - C# framework. Desktop/mobile/console. Cross-platform, great for procedural content generation.
+                        </button>
+                        <div class="engine-details" id="monogame">
+                            <p>MonoGame is a free, open-source C# framework used by game developers to make games for multiple platforms and other systems. It's the spiritual successor to Microsoft's XNA Framework and provides a similar API. MonoGame gives you direct control over rendering, audio, input, and networking, making it excellent for procedural generation where you need to create custom rendering pipelines. The framework supports Windows, macOS, Linux, iOS, Android, and various consoles. With a strong community and extensive documentation, MonoGame is a great choice for C# developers who want to implement procedural algorithms without the overhead of a full game engine.</p>
+                            <p><a href="https://www.monogame.net" target="_blank" rel="noopener noreferrer">Visit MonoGame website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="fna">
+                            <strong>FNA/XNA</strong> - C# framework. Desktop. Monogame predecessor, still used for procedural projects.
+                        </button>
+                        <div class="engine-details" id="fna">
+                            <p>FNA is a reimplementation of Microsoft's XNA Framework, providing the same API but with cross-platform support. XNA was Microsoft's game development framework for Windows and Xbox 360, and FNA brings that same API to modern platforms including Windows, macOS, Linux, and more. FNA is particularly useful if you have existing XNA code or want to learn the XNA API, which is known for being simple and straightforward. For procedural generation, FNA provides the same low-level control as MonoGame, with a slightly different API. The framework is free and open-source, maintained by a dedicated community.</p>
+                            <p><a href="https://fna-xna.github.io" target="_blank" rel="noopener noreferrer">Visit FNA website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="haxe">
+                            <strong>Haxe frameworks</strong> - Heaps, OpenFL, Kha. Desktop/mobile/web. Cross-platform, compile to multiple targets.
+                        </button>
+                        <div class="engine-details" id="haxe">
+                            <p>Haxe is an open-source, high-level, cross-platform programming language and compiler that can produce applications and source code for many different platforms from a single codebase. Haxe frameworks like Heaps (3D engine), OpenFL (Flash-like API), and Kha (low-level framework) allow you to write procedural generation code once and compile it to C++, JavaScript, C#, Java, Python, and more. This makes Haxe ideal for procedural generation projects that need to run on multiple platforms. The language is statically typed and has excellent tooling, making it a solid choice for complex algorithmic work.</p>
+                            <p><a href="https://haxe.org" target="_blank" rel="noopener noreferrer">Visit Haxe website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="pygame">
+                            <strong>Pygame</strong> - Python framework. Desktop. Great for learning and prototyping procedural algorithms.
+                        </button>
+                        <div class="engine-details" id="pygame">
+                            <p>Pygame is a set of Python modules designed for writing video games. It's built on top of SDL and provides a simple, Pythonic interface to graphics, sound, and input. Pygame is excellent for learning procedural generation because Python is easy to read and write, making algorithms clear and understandable. While not as performant as C++ or Rust engines, Pygame is perfect for prototyping procedural systems and learning how algorithms work. The framework has a large community and extensive documentation, with many tutorials and examples. Pygame is free and open-source, making it accessible to anyone learning procedural generation.</p>
+                            <p><a href="https://www.pygame.org" target="_blank" rel="noopener noreferrer">Visit Pygame website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="panda3d">
+                            <strong>Panda3D</strong> - Python/C++ engine. Desktop. 3D engine with Python scripting, good for procedural worlds.
+                        </button>
+                        <div class="engine-details" id="panda3d">
+                            <p>Panda3D is a 3D game engine developed by Disney and maintained by Carnegie Mellon University. It's written in C++ for performance but provides Python bindings, allowing you to write game logic in Python while benefiting from C++ performance. Panda3D includes a complete 3D rendering pipeline, physics engine, audio system, and more. For procedural generation, Panda3D's Python API makes it easy to generate geometry, create scenes, and manipulate 3D objects algorithmically. The engine is free and open-source, with excellent documentation and a supportive community. Panda3D is particularly strong for 3D procedural world generation.</p>
+                            <p><a href="https://www.panda3d.org" target="_blank" rel="noopener noreferrer">Visit Panda3D website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="gbstudio">
+                            <strong>GBStudio</strong> - Visual game builder for Game Boy. Desktop export. Supports custom scripts for procedural elements.
+                        </button>
+                        <div class="engine-details" id="gbstudio">
+                            <p>GBStudio is a free and easy-to-use retro adventure game creator for Game Boy. It's a visual editor that allows you to create games without coding, but it also supports custom C scripts for more advanced features. While primarily designed for adventure games, GBStudio's scripting system can be used to implement procedural generation elements. The engine compiles games to actual Game Boy ROM files that run on original hardware or emulators. GBStudio is perfect for retro-style procedural generation projects, especially if you want to create games that feel authentic to the Game Boy era. The tool is free and open-source.</p>
+                            <p><a href="https://www.gbstudio.dev" target="_blank" rel="noopener noreferrer">Visit GBStudio website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="playscii">
+                            <strong>Playscii</strong> - ASCII art game engine. Desktop. Perfect for text-based procedural generation and roguelikes.
+                        </button>
+                        <div class="engine-details" id="playscii">
+                            <p>Playscii is a free, open-source ASCII art game engine and editor for creating games that use text characters as graphics. It's written in Python and provides a simple framework for building roguelikes, text adventures, and other ASCII-based games. Playscii is particularly well-suited for procedural generation because ASCII characters are easy to generate algorithmically - you can create dungeons, maps, and worlds using simple character placement. The engine includes built-in tools for creating and editing ASCII art, making it easy to prototype procedural systems visually. Playscii is perfect for developers interested in procedural generation techniques used in classic roguelike games.</p>
+                            <p><a href="https://vectorpoem.github.io/playscii/" target="_blank" rel="noopener noreferrer">Visit Playscii website →</a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="tool-category" style="margin-top: 3rem;">
+                <h3>Node-Based Engines</h3>
+                <ul class="engine-list">
+                    <li>
+                        <button class="engine-toggle" data-engine="unreal-blueprints">
+                            <strong>Unreal Blueprints</strong> - Visual scripting in Unreal Engine. Desktop/mobile/console. Can create procedural systems without code.
+                        </button>
+                        <div class="engine-details" id="unreal-blueprints">
+                            <p>Unreal Blueprints is a visual scripting system built into Unreal Engine that allows you to create gameplay elements, procedural systems, and interactive content without writing traditional code. Blueprints use a node-based interface where you connect nodes together to create logic flow. For procedural generation, Blueprints excel at creating systems that generate content dynamically, such as procedural level generation, random item placement, or dynamic world building. While not as performant as C++ code, Blueprints are perfect for prototyping procedural systems quickly and can be optimized later if needed. The visual nature makes it easy to understand and modify procedural algorithms.</p>
+                            <p><a href="https://www.unrealengine.com/en-US/blueprints" target="_blank" rel="noopener noreferrer">Visit Unreal Blueprints documentation →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="construct3">
+                            <strong>Construct 3</strong> - Visual game builder. Web-based. Event sheets can implement procedural logic.
+                        </button>
+                        <div class="engine-details" id="construct3">
+                            <p>Construct 3 is a browser-based game development tool that uses a visual event system instead of traditional coding. It runs entirely in your web browser, making it accessible from any device. While primarily designed for 2D games, Construct 3's event sheets can be used to implement procedural generation logic through its visual scripting system. The engine includes built-in behaviors, effects, and plugins that can be combined to create procedural systems. Construct 3 is particularly good for beginners who want to experiment with procedural generation concepts without learning a programming language, though more complex procedural algorithms may require JavaScript plugins.</p>
+                            <p><a href="https://www.construct.net" target="_blank" rel="noopener noreferrer">Visit Construct 3 website →</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="engine-toggle" data-engine="gamemaker">
+                            <strong>GameMaker Studio</strong> - GML scripting + visual tools. Desktop/mobile/web. Good balance for procedural work.
+                        </button>
+                        <div class="engine-details" id="gamemaker">
+                            <p>GameMaker Studio is a cross-platform game development tool that offers both visual drag-and-drop tools and a scripting language called GML (GameMaker Language). This hybrid approach makes it excellent for procedural generation - you can use the visual tools for rapid prototyping and GML for implementing complex algorithms. GML is similar to JavaScript and is easy to learn, making it accessible for procedural generation work. GameMaker Studio has a strong community and many resources for procedural generation techniques. The engine supports 2D games primarily, with some 3D capabilities, and can export to Windows, macOS, Linux, iOS, Android, and web browsers.</p>
+                            <p><a href="https://www.yoyogames.com/gamemaker" target="_blank" rel="noopener noreferrer">Visit GameMaker Studio website →</a></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <p class="tools-note">All algorithms on this site can be implemented in any of these engines. The visualizers use vanilla JavaScript/Canvas to demonstrate concepts that translate directly to your engine of choice.</p>
+        </section>
+
         <section class="blog">
             <h2>Blog</h2>
             <p>Coming soon - Articles on procedural generation, algorithm design, and system thinking.</p>
@@ -83,6 +375,8 @@
     <footer>
         <p>Developer-Focused</p>
     </footer>
+
+    <script src="js/engine-expand.js"></script>
 </body>
 </html>
 
