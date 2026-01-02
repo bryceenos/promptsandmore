@@ -64,14 +64,14 @@ main {
 
 .intro {
     text-align: center;
-    margin: 3rem 0;
+    margin: -2.5rem 0 3rem 0;
     padding: 2rem;
 }
 
 .intro h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: var(--accent);
+    color: var(--text-primary);
 }
 
 .intro p {
@@ -81,7 +81,7 @@ main {
 }
 
 .emphasis {
-    color: var(--accent) !important;
+    color: var(--text-secondary) !important;
     font-weight: 600;
     font-size: 1.2rem !important;
 }
@@ -93,7 +93,7 @@ main {
 .categories h2 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
-    color: var(--accent);
+    color: var(--text-primary);
 }
 
 .category-grid {
@@ -141,7 +141,7 @@ main {
 .principles h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
-    color: var(--accent);
+    color: var(--text-primary);
 }
 
 .principles ul {
@@ -160,11 +160,28 @@ main {
     content: "→";
     position: absolute;
     left: 0;
-    color: var(--accent);
+    color: var(--text-secondary);
 }
 
 .principles strong {
     color: var(--text-primary);
+}
+
+.blog {
+    margin: 4rem 0;
+    padding: 2rem;
+}
+
+.blog h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.blog p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
 }
 
 footer {
@@ -188,7 +205,7 @@ footer {
 
 .demo-header h1 {
     font-size: 2.5rem;
-    color: var(--accent);
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
@@ -253,7 +270,7 @@ footer {
 
 .control-group h3 {
     font-size: 1rem;
-    color: var(--accent);
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
@@ -331,7 +348,7 @@ footer {
 
 .info-section h2 {
     font-size: 1.5rem;
-    color: var(--accent);
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 

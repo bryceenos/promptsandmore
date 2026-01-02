@@ -29,6 +29,12 @@ export class GrowthForms {
         };
         this.phyllotaxisPoints = [];
         this.mode = 'lsystem'; // 'lsystem' or 'phyllotaxis'
+        this.animationTime = 0;
+        this.animationSpeed = 0.5; // seconds per iteration
+        this.isAnimating = false;
+        this.animationId = null;
+        this.currentIteration = 0;
+        this.targetIteration = 0;
 
         this.init();
     }
@@ -36,6 +42,8 @@ export class GrowthForms {
     init() {
         // Mode selection
         this.framework.addToggle('showPhyllotaxis', 'Show Phyllotaxis', false);
+        this.framework.addToggle('autoGrow', 'Auto Grow Animation', false);
+        this.framework.addSlider('growthSpeed', 'Growth Speed', 0.1, 2, 0.5, 0.1);
         
         // L-system parameters
         this.framework.addSlider('iterations', 'L-system Iterations', 0, 5, 2, 1);
@@ -46,14 +54,44 @@ export class GrowthForms {
         // Phyllotaxis parameters
         this.framework.addSlider('phylloCount', 'Phyllotaxis Points', 50, 500, 200, 10);
         this.framework.addSlider('phylloAngle', 'Phyllotaxis Angle', 0, 360, 137.5, 0.1);
-        this.framework.addSlider('phylloScale', 'Phyllotaxis Scale', 0.1, 2, 0.5, 0.1);
+        this.framework.addSlider('phylloScale', 'Phyllotaxis Scale', 5, 50, 20, 0.5);
 
-        this.framework.on('onParamChange', () => this.render());
-        this.framework.on('onReset', () => this.render());
+        this.framework.on('onParamChange', (name) => {
+            if (name === 'autoGrow') {
+                const params = this.framework.getParams();
+                if (params.autoGrow) {
+                    this.startAnimation();
+                } else {
+                    this.stopAnimation();
+                }
+            } else if (name === 'growthSpeed') {
+                this.animationSpeed = 2 - this.framework.getParams().growthSpeed; // Invert so higher = faster
+            } else if (name === 'iterations') {
+                const params = this.framework.getParams();
+                this.targetIteration = Math.floor(params.iterations || 0);
+                if (!this.isAnimating) {
+                    this.currentIteration = this.targetIteration;
+                }
+            }
+            this.render();
+        });
+        this.framework.on('onReset', () => {
+            this.stopAnimation();
+            this.currentIteration = 0;
+            this.targetIteration = 0;
+            this.framework.params.iterations = 0;
+            this.render();
+        });
+        this.framework.on('onPause', (isPaused) => {
+            // Animation respects pause state automatically
+        });
         this.framework.on('onStep', () => {
             const params = this.framework.getParams();
-            if (params.iterations < 5) {
-                this.framework.params.iterations = (params.iterations || 0) + 1;
+            const maxIterations = 5;
+            if (this.currentIteration < maxIterations) {
+                this.currentIteration++;
+                this.targetIteration = this.currentIteration;
+                this.framework.params.iterations = this.currentIteration;
                 this.render();
             }
         });
@@ -67,7 +105,75 @@ export class GrowthForms {
             }
         });
 
+        // Initialize
+        const params = this.framework.getParams();
+        this.currentIteration = Math.floor(params.iterations || 0);
+        this.targetIteration = this.currentIteration;
+        
         this.render();
+        
+        // Start animation if auto-grow is enabled
+        if (params.autoGrow) {
+            this.startAnimation();
+        }
+    }
+    
+    startAnimation() {
+        if (this.isAnimating) return;
+        
+        this.isAnimating = true;
+        this.animationTime = 0;
+        const params = this.framework.getParams();
+        this.animationSpeed = 2 - (params.growthSpeed || 0.5);
+        this.targetIteration = Math.floor(params.iterations || 0);
+        
+        const animate = () => {
+            if (!this.isAnimating) return;
+            
+            if (this.framework.isPaused) {
+                this.animationId = requestAnimationFrame(animate);
+                return;
+            }
+            
+            const params = this.framework.getParams();
+            if (!params.autoGrow) {
+                this.stopAnimation();
+                return;
+            }
+            
+            // Update animation time
+            this.animationTime += 0.016; // ~60fps
+            
+            // Calculate current iteration based on time
+            const newIteration = Math.min(
+                Math.floor(this.animationTime / this.animationSpeed),
+                this.targetIteration
+            );
+            
+            if (newIteration !== this.currentIteration) {
+                this.currentIteration = newIteration;
+                this.framework.params.iterations = this.currentIteration;
+                this.render();
+            }
+            
+            // Loop: reset when reaching target
+            if (this.currentIteration >= this.targetIteration && this.animationTime >= this.targetIteration * this.animationSpeed) {
+                this.animationTime = 0;
+                this.currentIteration = 0;
+            }
+            
+            this.animationId = requestAnimationFrame(animate);
+        };
+        
+        this.animationId = requestAnimationFrame(animate);
+    }
+    
+    stopAnimation() {
+        this.isAnimating = false;
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
     }
 
     generateCode() {
@@ -124,6 +230,10 @@ export class GrowthForms {
             <label>Phyllotaxis Angle: <span id="phylloAngleValue">${params.phylloAngle || 137.5}</span></label>
             <input type="range" id="phylloAngle" min="0" max="360" step="0.1" value="${params.phylloAngle || 137.5}" oninput="updatePhylloAngle(this.value)">
         </div>
+        <div class="control-group">
+            <label>Phyllotaxis Scale: <span id="phylloScaleValue">${params.phylloScale || 20}</span></label>
+            <input type="range" id="phylloScale" min="5" max="50" step="0.5" value="${params.phylloScale || 20}" oninput="updatePhylloScale(this.value)">
+        </div>
     </div>
 
     <script>
@@ -142,7 +252,7 @@ export class GrowthForms {
             thickness: ${params.thickness || 3},
             phylloCount: ${params.phylloCount || 200},
             phylloAngle: ${params.phylloAngle || 137.5},
-            phylloScale: ${params.phylloScale || 0.5}
+            phylloScale: ${params.phylloScale || 20}
         };
 
         function generateLSystem() {
@@ -268,12 +378,12 @@ export class GrowthForms {
 </body>
 </html>`;
     }
-}
 
     generateLSystem() {
         const params = this.framework.getParams();
         let current = this.lsystem.axiom;
-        const iterations = Math.floor(params.iterations || 0);
+        // Use currentIteration for smooth animation, or params.iterations for manual control
+        const iterations = this.isAnimating ? this.currentIteration : Math.floor(params.iterations || 0);
         const rules = this.lsystem.rules;
 
         for (let i = 0; i < iterations; i++) {
@@ -346,7 +456,7 @@ export class GrowthForms {
         const params = this.framework.getParams();
         const count = Math.floor(params.phylloCount || 200);
         const angle = (params.phylloAngle || 137.5) * Math.PI / 180;
-        const scale = params.phylloScale || 0.5;
+        const scale = params.phylloScale || 20;
 
         this.phyllotaxisPoints = [];
         const centerX = this.canvas.width / 2;
@@ -364,11 +474,21 @@ export class GrowthForms {
     drawPhyllotaxis() {
         const ctx = this.ctx;
         this.generatePhyllotaxis();
+        const params = this.framework.getParams();
+        
+        // Animate phyllotaxis points appearing progressively
+        let pointsToShow = this.phyllotaxisPoints.length;
+        if (params.autoGrow && this.isAnimating) {
+            // Show points progressively based on animation time
+            const cycleTime = this.animationSpeed * 10; // Full cycle time
+            const progress = (this.animationTime % cycleTime) / cycleTime;
+            pointsToShow = Math.floor(progress * this.phyllotaxisPoints.length);
+        }
 
         // Draw connections
         ctx.strokeStyle = 'rgba(74, 158, 255, 0.3)';
         ctx.lineWidth = 1;
-        for (let i = 1; i < this.phyllotaxisPoints.length; i++) {
+        for (let i = 1; i < pointsToShow; i++) {
             const p1 = this.phyllotaxisPoints[i - 1];
             const p2 = this.phyllotaxisPoints[i];
             ctx.beginPath();
@@ -379,7 +499,8 @@ export class GrowthForms {
 
         // Draw points
         ctx.fillStyle = '#4ade80';
-        for (const point of this.phyllotaxisPoints) {
+        for (let i = 0; i < pointsToShow; i++) {
+            const point = this.phyllotaxisPoints[i];
             const size = 3 + (point.index / this.phyllotaxisPoints.length) * 5;
             ctx.beginPath();
             ctx.arc(point.x, point.y, size, 0, Math.PI * 2);

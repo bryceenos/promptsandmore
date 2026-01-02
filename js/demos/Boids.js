@@ -302,7 +302,7 @@ export class Boids {
         const params = this.framework.getParams();
         const seed = this.framework.getSeed();
         const numBoids = Math.floor(params.numBoids || 50);
-        return \`<!DOCTYPE html>
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -380,7 +380,7 @@ export class Boids {
         };
 
         function regenerate() {
-            const random = new SeededRandom(parseInt(document.getElementById('seed').value) || \${seed});
+            const random = new SeededRandom(parseInt(document.getElementById('seed').value) || ${seed});
             boids = [];
             for (let i = 0; i < params.numBoids; i++) {
                 boids.push({
@@ -568,7 +568,7 @@ export class Boids {
         animate();
     </script>
 </body>
-</html>\`;
+</html>`;
     }
 }
 

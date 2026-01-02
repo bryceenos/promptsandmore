@@ -27,6 +27,14 @@ export class SpatialPartitioning {
         this.isDragging = false;
         this.dragIndex = -1;
         this.updatePending = false;
+        this.isRelaxing = false;
+        this.currentRelaxationStep = 0;
+        this.targetRelaxationSteps = 0;
+        this.relaxationAnimationId = null;
+        this.originalPoints = []; // Store original points for reverse
+        this.relaxationHistory = []; // Store point positions at each step for reverse
+        this.isReversing = false;
+        this.loopMode = false;
 
         this.init();
     }
@@ -49,8 +57,9 @@ export class SpatialPartitioning {
         }, 0);
         this.framework.addToggle('showDelaunay', 'Show Delaunay Triangulation', false);
         this.framework.addToggle('showBiomes', 'Show Biome Colors', true);
-        this.framework.addToggle('lloydRelaxation', 'Lloyd Relaxation', false);
-        this.framework.addSlider('relaxationSteps', 'Relaxation Steps', 0, 10, 0, 1);
+        this.framework.addToggle('lloydRelaxation', 'Animate Lloyd Relaxation', false);
+        this.framework.addToggle('loopMode', 'Loop Mode (Forward/Backward)', false);
+        this.framework.addSlider('relaxationSteps', 'Relaxation Steps', 1, 20, 5, 1);
         
         // Setup callbacks
         this.framework.on('onSeedChange', (seed) => {
@@ -60,14 +69,60 @@ export class SpatialPartitioning {
         this.framework.on('onParamChange', (name, value) => {
             if (name === 'numPoints') {
                 // Always regenerate when number of points changes
+                this.stopRelaxation();
+                this.currentRelaxationStep = 0;
+                this.relaxationHistory = [];
                 this.regenerate(this.framework.getSeed());
-            } else if (name === 'lloydRelaxation' || name === 'relaxationSteps') {
-                this.updateRelaxation();
+            } else if (name === 'lloydRelaxation') {
+                const params = this.framework.getParams();
+                if (params.lloydRelaxation) {
+                    this.startRelaxation();
+                } else {
+                    this.stopRelaxation();
+                }
+            } else if (name === 'loopMode') {
+                const params = this.framework.getParams();
+                this.loopMode = params.loopMode || false;
+            } else if (name === 'relaxationSteps') {
+                const params = this.framework.getParams();
+                this.targetRelaxationSteps = Math.floor(params.relaxationSteps || 5);
+                if (this.isRelaxing) {
+                    // Restart with new target
+                    this.stopRelaxation();
+                    this.startRelaxation();
+                }
             } else {
                 this.render();
             }
         });
+        this.framework.on('onPause', (isPaused) => {
+            if (isPaused) {
+                // Pause relaxation
+                if (this.relaxationAnimationId) {
+                    clearTimeout(this.relaxationAnimationId);
+                    this.relaxationAnimationId = null;
+                }
+            } else {
+                // Resume relaxation if it was running
+                const params = this.framework.getParams();
+                if (params.lloydRelaxation && this.isRelaxing) {
+                    this.startRelaxation();
+                }
+            }
+        });
+        this.framework.on('onStep', () => {
+            // Single step of relaxation
+            if (this.isReversing) {
+                this.stepBackward();
+            } else {
+                this.stepForward();
+            }
+        });
         this.framework.on('onReset', () => {
+            this.stopRelaxation();
+            this.currentRelaxationStep = 0;
+            this.relaxationHistory = [];
+            this.isReversing = false;
             this.regenerate(this.framework.getSeed());
             this.render();
         });
@@ -100,15 +155,18 @@ export class SpatialPartitioning {
             });
         }
         
+        // Store original points for reverse
+        this.originalPoints = this.points.map(p => ({ x: p.x, y: p.y }));
+        this.relaxationHistory = [this.originalPoints.map(p => ({ x: p.x, y: p.y }))];
+        
         this.computeVoronoi();
         this.computeDelaunay();
+        this.render();
         
-        // Only update relaxation if it's enabled, otherwise just render
+        // Start relaxation animation if enabled
         const params2 = this.framework.getParams();
         if (params2.lloydRelaxation) {
-            this.updateRelaxation();
-        } else {
-            this.render();
+            this.startRelaxation();
         }
     }
 
@@ -206,40 +264,133 @@ export class SpatialPartitioning {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    updateRelaxation() {
-        const params = this.framework.getParams();
-        if (!params.lloydRelaxation) return;
-        
-        const steps = Math.floor(params.relaxationSteps || 0);
-        for (let step = 0; step < steps; step++) {
-            // Compute centroids of Voronoi cells
-            const centroids = [];
-            for (const cell of this.voronoiCells) {
-                if (cell.vertices.length === 0) {
-                    centroids.push(cell.point);
-                    continue;
-                }
-                
-                let sumX = 0, sumY = 0;
-                for (const v of cell.vertices) {
-                    sumX += v.x;
-                    sumY += v.y;
-                }
-                centroids.push({
-                    x: sumX / cell.vertices.length,
-                    y: sumY / cell.vertices.length
-                });
+    stepForward() {
+        // Compute centroids of Voronoi cells
+        const centroids = [];
+        for (const cell of this.voronoiCells) {
+            if (cell.vertices.length === 0) {
+                centroids.push(cell.point);
+                continue;
             }
             
-            // Move points to centroids
+            let sumX = 0, sumY = 0;
+            for (const v of cell.vertices) {
+                sumX += v.x;
+                sumY += v.y;
+            }
+            centroids.push({
+                x: sumX / cell.vertices.length,
+                y: sumY / cell.vertices.length
+            });
+        }
+        
+        // Move points to centroids
+        for (let i = 0; i < this.points.length; i++) {
+            this.points[i] = centroids[i];
+        }
+        
+        // Store in history
+        this.relaxationHistory.push(this.points.map(p => ({ x: p.x, y: p.y })));
+        
+        this.computeVoronoi();
+        this.computeDelaunay();
+        this.render();
+        
+        this.currentRelaxationStep++;
+    }
+    
+    stepBackward() {
+        if (this.relaxationHistory.length > 1) {
+            // Remove current state
+            this.relaxationHistory.pop();
+            // Restore previous state
+            const previous = this.relaxationHistory[this.relaxationHistory.length - 1];
             for (let i = 0; i < this.points.length; i++) {
-                this.points[i] = centroids[i];
+                this.points[i] = { x: previous[i].x, y: previous[i].y };
             }
             
             this.computeVoronoi();
+            this.computeDelaunay();
+            this.render();
+            
+            this.currentRelaxationStep--;
+        }
+    }
+    
+    startRelaxation() {
+        if (this.isRelaxing && !this.framework.isPaused) return;
+        
+        const params = this.framework.getParams();
+        this.isRelaxing = true;
+        this.targetRelaxationSteps = Math.floor(params.relaxationSteps || 5);
+        
+        // Reset if starting fresh
+        if (this.currentRelaxationStep === 0 && this.relaxationHistory.length <= 1) {
+            this.relaxationHistory = [this.points.map(p => ({ x: p.x, y: p.y }))];
         }
         
-        this.render();
+        const relaxStep = () => {
+            if (this.framework.isPaused) {
+                // Paused, don't continue
+                this.relaxationAnimationId = setTimeout(relaxStep, 100);
+                return;
+            }
+            
+            if (!this.isRelaxing) {
+                return;
+            }
+            
+            if (this.isReversing) {
+                // Going backward
+                if (this.currentRelaxationStep <= 0) {
+                    // Reached start, switch to forward if looping
+                    if (this.loopMode) {
+                        this.isReversing = false;
+                        this.relaxationAnimationId = setTimeout(relaxStep, 200);
+                    } else {
+                        this.stopRelaxation();
+                    }
+                    return;
+                }
+                this.stepBackward();
+            } else {
+                // Going forward
+                if (this.currentRelaxationStep >= this.targetRelaxationSteps) {
+                    // Reached end, switch to backward if looping
+                    if (this.loopMode) {
+                        this.isReversing = true;
+                        this.relaxationAnimationId = setTimeout(relaxStep, 200);
+                    } else {
+                        this.stopRelaxation();
+                    }
+                    return;
+                }
+                this.stepForward();
+            }
+            
+            this.relaxationAnimationId = setTimeout(relaxStep, 200); // 200ms per step
+        };
+        
+        relaxStep();
+    }
+    
+    stopRelaxation() {
+        this.isRelaxing = false;
+        this.isReversing = false;
+        if (this.relaxationAnimationId) {
+            clearTimeout(this.relaxationAnimationId);
+            this.relaxationAnimationId = null;
+        }
+    }
+    
+    updateRelaxation() {
+        // Legacy method - now handled by startRelaxation/stopRelaxation
+        const params = this.framework.getParams();
+        if (params.lloydRelaxation) {
+            this.startRelaxation();
+        } else {
+            this.stopRelaxation();
+        }
     }
 
     handleClick(e) {
